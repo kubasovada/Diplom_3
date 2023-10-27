@@ -49,7 +49,7 @@ public class LoginTest {
     public void loginFromPersonalAccountTest() {
         mainPage = new MainPage(factory.getDriver());
         mainPage.open();
-        mainPage.clickOnPersonalAccount();
+        mainPage.clickOnPersonalAccountButton();
         loginPage = new LoginPage(factory.getDriver());
         loginPage.login(email, password);
         assertEquals("Оформить заказ", mainPage.textOrderButton());

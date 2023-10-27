@@ -41,4 +41,11 @@ public class LoginPage {
         driver.findElement(forgotPasswordButton).click();
         driver.findElement(logButtonFromForgotPassword).click();
     }
+
+    @Step ("Check login button on login page")
+    public String checkLogInButton() {
+        new WebDriverWait(driver, Duration.ofSeconds(15)).until(ExpectedConditions.elementToBeClickable(loginButton));
+        return driver.findElement(loginButton).getText();
+
+    }
 }
