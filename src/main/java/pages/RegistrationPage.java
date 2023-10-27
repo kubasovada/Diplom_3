@@ -54,7 +54,4 @@ public class RegistrationPage {
         driver.findElement(loginButton).click();
     }
 
-
-
-
 }

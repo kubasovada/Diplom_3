@@ -17,6 +17,7 @@ public class RegistrationTest {
     private String name = RandomStringUtils.randomAlphanumeric(10);
     private String email = RandomStringUtils.randomAlphanumeric(10)+"@ya.ru";
     RegistrationPage registrationPage;
+
     @Before
     public void setUp() {
         registrationPage = new RegistrationPage(factory.getDriver());
@@ -49,7 +50,5 @@ public class RegistrationTest {
         registrationPage.clickOnRegistrationButton();
         assertTrue(registrationPage.getErrorMessage().isDisplayed());
     }
-
-
 
 }
