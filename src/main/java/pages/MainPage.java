@@ -4,6 +4,8 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.html5.LocalStorage;
+import org.openqa.selenium.html5.WebStorage;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -21,6 +23,7 @@ public class MainPage {
     private final By sauceSection = By.xpath(".//h2[text()='Соусы']");
     private final By fillingSection = By.xpath(".//h2[text()='Начинки']");
     private final By bunsSection = By.xpath(".//h2[text()='Булки']");
+    String accessToken;
 
 
     public MainPage(WebDriver driver) {
@@ -65,5 +68,10 @@ public class MainPage {
         return driver.findElement(bunsSection).isDisplayed();
     }
 
+    public String getAccessFromLocalStorage() {
+        new WebDriverWait(driver, Duration.ofSeconds(15)).until(ExpectedConditions.elementToBeClickable(bunsButtonOnMainPage));
+        LocalStorage localStorage = ((WebStorage) driver).getLocalStorage();
+        return accessToken = localStorage.getItem("accessToken");
+    }
 
 }

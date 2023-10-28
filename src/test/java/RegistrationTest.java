@@ -6,6 +6,7 @@ import org.junit.Test;
 import pages.LoginPage;
 import pages.MainPage;
 import pages.RegistrationPage;
+import pages.RestClient;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -13,10 +14,12 @@ import static org.junit.Assert.assertTrue;
 
 public class RegistrationTest {
     DriverFactory factory = new DriverFactory();
-
     private String name = RandomStringUtils.randomAlphanumeric(10);
     private String email = RandomStringUtils.randomAlphanumeric(10)+"@ya.ru";
     RegistrationPage registrationPage;
+    RestClient restClient = new RestClient();
+    String accessToken;
+
 
     @Before
     public void setUp() {
@@ -27,7 +30,6 @@ public class RegistrationTest {
     public void killDriver() {
         factory.killDriver();
     }
-
     @Test
     @DisplayName("check success registration")
     public void registrationTest() {
@@ -38,7 +40,9 @@ public class RegistrationTest {
         LoginPage loginPage = new LoginPage(factory.getDriver());
         loginPage.login(email, password);
         MainPage mainPage = new MainPage(factory.getDriver());
+        accessToken = mainPage.getAccessFromLocalStorage();
         assertEquals("Оформить заказ", mainPage.textOrderButton());
+        restClient.delete(accessToken);
     }
 
     @Test
