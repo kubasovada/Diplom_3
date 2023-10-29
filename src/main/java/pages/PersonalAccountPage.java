@@ -10,11 +10,9 @@ import java.time.Duration;
 
 public class PersonalAccountPage {
     WebDriver driver;
-    private static final By logOutButton = By.xpath(".//button[text()='Выход']");
-    private static final By logo = By.className("AppHeader_header__logo__2D0X2");
-    private static final By constructorInHeader = By.xpath(".//p[text()='Конструктор']");
-
-
+    private final By logOutButton = By.xpath(".//button[text()='Выход']");
+    private final By logo = By.className("AppHeader_header__logo__2D0X2");
+    private final By constructorInHeader = By.xpath(".//p[text()='Конструктор']");
 
     public PersonalAccountPage(WebDriver driver) {
         this.driver = driver;

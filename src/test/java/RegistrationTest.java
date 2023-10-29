@@ -48,11 +48,23 @@ public class RegistrationTest {
     @Test
     @DisplayName("check error message when password less 6 numbers")
     public void registrationWithErrorTest() {
-        String password = "123";
-        registrationPage.open();
-        registrationPage.fillRegistrationForm(name, email,password);
-        registrationPage.clickOnRegistrationButton();
-        assertTrue(registrationPage.getErrorMessage().isDisplayed());
+        String IncorrectPassword = "123";
+
+        try{
+            registrationPage.open();
+            registrationPage.fillRegistrationForm(name, email,IncorrectPassword);
+            registrationPage.clickOnRegistrationButton();
+            assertTrue(registrationPage.getErrorMessage().isDisplayed());
+        }
+        catch(Exception exception){
+            LoginPage loginPage = new LoginPage(factory.getDriver());
+            loginPage.login(email, IncorrectPassword);
+            MainPage mainPage = new MainPage(factory.getDriver());
+            mainPage.checkFillingIsDisplayed();
+            accessToken = mainPage.getAccessFromLocalStorage();
+            restClient.delete(accessToken);
+            assertTrue(registrationPage.getErrorMessage().isDisplayed()); // фейлю тест, но при этом удаляю созданного юзера
+        }
     }
 
 }

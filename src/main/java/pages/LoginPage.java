@@ -10,11 +10,12 @@ import java.time.Duration;
 
 public class LoginPage {
     private static final String LOGIN_URL = "https://stellarburgers.nomoreparties.site/login";
-    private final By emailField = By.xpath(".//input[@type='text']");
-    private final By passwordField = By.xpath(".//input[@type='password']");
+    private final By emailField = By.xpath(".//input[@name='name']");
+    private final By passwordField = By.xpath(".//input[@name='Пароль']");
     private final By loginButton = By.xpath(".//button[text()='Войти']");
     private final By forgotPasswordButton = By.xpath(".//a[@href='/forgot-password']");
     private final By logButtonFromForgotPassword = By.xpath(".//a[@href='/login']");
+    private final By authTitleEnter = By.xpath(".//main//h2");
     WebDriver driver;
 
     public LoginPage(WebDriver driver) {
@@ -27,18 +28,14 @@ public class LoginPage {
     }
     @Step("Fill email, password for login and click button")
     public void login(String email, String password) {
-        try{
-            Thread.sleep(1000);
-        }
-        catch(InterruptedException ie){
-        }
+        new WebDriverWait(driver, Duration.ofSeconds(30))
+                .until(ExpectedConditions.textToBe(authTitleEnter, "Вход"));
         driver.findElement(emailField).clear();
         driver.findElement(emailField).sendKeys(email);
         driver.findElement(passwordField).clear();
         driver.findElement(passwordField).sendKeys(password);
         new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(loginButton));
         driver.findElement(loginButton).click();
-
     }
 
     @Step ("Wait and click on forgot password button")
