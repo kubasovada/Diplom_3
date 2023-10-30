@@ -48,17 +48,17 @@ public class RegistrationTest {
     @Test
     @DisplayName("check error message when password less 6 numbers")
     public void registrationWithErrorTest() {
-        String IncorrectPassword = "123";
+        String incorrectPassword = "123";
 
         try{
             registrationPage.open();
-            registrationPage.fillRegistrationForm(name, email,IncorrectPassword);
+            registrationPage.fillRegistrationForm(name, email,incorrectPassword);
             registrationPage.clickOnRegistrationButton();
             assertTrue(registrationPage.getErrorMessage().isDisplayed());
         }
         catch(Exception exception){
             LoginPage loginPage = new LoginPage(factory.getDriver());
-            loginPage.login(email, IncorrectPassword);
+            loginPage.login(email, incorrectPassword);
             MainPage mainPage = new MainPage(factory.getDriver());
             mainPage.checkFillingIsDisplayed();
             accessToken = mainPage.getAccessFromLocalStorage();
